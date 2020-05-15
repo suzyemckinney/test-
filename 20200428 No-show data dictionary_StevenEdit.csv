@@ -1,0 +1,97 @@
+﻿Source,Fields,Definition,Data type,Character length,Acceptable values,Units (if any),Comment,Critical?,Do we have it?
+direct from RIS/HIS,PROCEDURE_KEY,"Unequivocal key of the procedure, can be used for linking ",int,20,E00000000,,Consider adding complexity of appointment as feature ,,Yes
+direct from RIS/HIS,ADMISSION_TYPE,Admission type of the case ,string,1,"E,I,O",,,,Yes
+direct from RIS/HIS,APPOINTMENT_DATE,The date and time for which the appointment was scheduled,datetime,,,,,,Yes
+direct from RIS/HIS,APPOINTMENT_METHOD,"How the appointment was made (Online Platform, telephone, letter).",string,,,,,,No
+direct from RIS/HIS,DATE_APPOINTMENT_ALLOCATION,The date the appointment was scheduled,datetime,,,,Date appointment was entered onto the schedule. ,,Yes
+direct from RIS/HIS,DICOM_MODALITY,Modality of the case ,string,2,"CT,MR,etc.",,,,Yes
+direct from RIS/HIS,PAT_BIRTH_DATE,Patient date of birth,datetime,,,,**This is PHI.  Better to use age than DOB.,,Yes
+direct from RIS/HIS,PAT_EDUCATION,Patient education level,string,,"Graduated - Some College, 8th Grade or less, etc.",,,,Yes
+direct from RIS/HIS,PAT_EMPLOYMENT,"Patient employment category: full time, part-time, student, disabled…)",string,,"Full time, unemployed, part-time,etc.",,,,Yes
+direct from RIS/HIS,PAT_KEYACC,Patient Key Account status: Y/N,string,,,,,Non-critical,
+direct from RIS/HIS,PAT_PSYCH,Patient has known psychological issues,string,,,,"**Not PHI, but protected info. Better to be as generic as possible (i.e. Y/N ok, but dx is not)",Non-critical,
+direct from RIS/HIS,PAT_REDUCED_MOBILITY,Patient has decreased mobility / is using a wheelchair,string,,,,,Non-critical; helpful if available,
+direct from RIS/HIS,PAT_DRUGS,Patient has a history of drug or alcohol abuse,string,,,,"**Not PHI, but protected info. Better to be as generic as possible (i.e. Y/N ok, but dx is not)",Non-critical,
+direct from RIS/HIS,PAT_CLAUSTROPHOBIA,Patient is known to have Claustrophobia,string,,,,,Non-critical; helpful if available,
+direct from RIS/HIS,PAT_ETHNICITY,Patient ethnicity,string,,"Asian, White, etc.",,,,Yes
+direct from RIS/HIS,PAT_INSURANCE,"Patient insurance type: private, public... ",string,,"Blue Cross Blue Shield, Commercial, Medicare, etc.",,,,Yes
+direct from RIS/HIS,PAT_INSURANCE_RELATIONSHIP,"Patient insurance relationship: self, father, husband…",string,,"Self, Mother, etc.",,,,Yes
+direct from RIS/HIS,PAT_MARITAL,"Patient marital status: single, married, divorced…",string,,"Married/Civil Union, Single, etc.",,,,Yes
+direct from RIS/HIS,PAT_POSTAL_CODE,Postal Code in the patient's address,string,5,,,**PHI  Better to use calculated distance ,,Yes
+direct from RIS/HIS,PAT_SEX,Patient's sex ,string,,"Male, Female",,,,Yes
+direct from RIS/HIS,PAT_SIZE,Patient height,decimal,,,feet,,,Yes
+direct from RIS/HIS,PAT_TELEPHON,Patient telephone number,string,13,(555)555-5555,,"Number, or N/A  **PHI",,Yes
+direct from RIS/HIS,PAT_WEIGHT,Patient weight,decimal,,,pounds,,,Yes
+direct from RIS/HIS,PRIORITY_CODE,Priority level of the case (Urgency) ,string,,"Routine, Stat",,,,Yes
+direct from RIS/HIS,PROCEDURE_CODE,Procedure Code of the case,string,25,"CT.TH.CHEST+, MR.MS.KNEE-/L, etc.",,,,Yes
+direct from RIS/HIS,REF_SOURCE_INT_EXT,Define the type of referral source: internal or external ,string,,"Internal,External",,Ordered by internal physician with privileges or from outside physician,Non-critical,
+direct from RIS/HIS,REF_SOURCE_NAME,Name of the referral source ,string,50,"DOCTOR,DR., etc.",,,,Yes
+direct from RIS/HIS,REF_SOURCE_POSTAL_CODE,Postal Code of the referral source ,string,,,,Distance from referring physician to site of appointment,Non-critical,
+direct from RIS/HIS,REF_DOMAIN,Medical domain of the referral source,string,,,,This is division of referring source e.g. Cardiology,Non-critical,
+direct from RIS/HIS,REQUEST_DATE,The date the appointment was requested,datetime,,,,Date/time the appointment was placed on the schedule; made appt on Monday (request date) for Friday (appt allocation/scheduled date),Non-critical,
+direct from RIS/HIS,SECTION_CODE,Section where the procedure is scheduled to take place,string,30,"NEURO, BREAST, etc.",,This is hospital division e.g. Neurology,,Yes
+direct from RIS/HIS,SITE_CODE,"For multisite, site where the procedure is scheduled to take place",string,10,"MGH, etc.",,This is geographic site e.g. MGH-Downtown vs MGH-Suburbs,,Yes
+direct from RIS/HIS,WORKPLACE_CODE,Workplace where the procedure is scheduled to take place ,string,10,"CT1E2,US1A2,etc.",,Resource name (specific scanner),,Yes
+direct from RIS/HIS,SHOW_NOSHOW,The final appointment status (show or no-show) ,boolean/int,1,"1,0",,,,Yes
+METADATA - calendar,is_vacation_day,Determine if Appointment_date a vacation day or not ,boolean/int,1,"1,0",,These are commonly observed holidays that are not public holidays in the US e.g. Chinese New Year,,
+METADATA - calendar,is_bank_holiday,Determine if Appointment_date a bank holiday or not ,boolean/int,,,,,Non-critical,
+METADATA-  geocoding,pat_latitude,Most likely will use patient zip code to calculate latitude/longitude,decimal,,"42.5,etc.",latitude,Consider using more granular unit than zipcode for location; would require API; may have privacy issues,,Yes
+METADATA-  geocoding,pat_longitude,Most likely will use patient zip code to calculate latitude/longitude,decimal,,"42.5,etc.",longitude,,,Yes
+METADATA-  geocoding,ref_source_latitude,,,,,,,,
+METADATA-  geocoding,ref_source_longitude,,,,,,,,
+weather data,main.0,,,,,,"“Main” means overall description of weather for that day e.g. 'rain', 'snow'",,Yes
+weather data,clouds.all,,int,,"1,75,90,etc.",,,,Yes
+weather data,main.humidity,,int,,"38,70,etc.",%,"Did not use this field in last model, as already derived in the forecast so are percentages and vary from hour to hour (0-100%)",,Yes
+weather data,main.pressure,,int,,"1021,1017,etc.",mbar,,,Yes
+weather data,main.temp,Average forecasted day temperature ,decimal,,"41.7,38.5,etc.",F,,,Yes
+weather data,main.temp_min,,decimal,,"41.7,38.5,etc.",F,,,Yes
+weather data,main.temp_max,,decimal,,"41.7,38.5,etc.",F,,,Yes
+weather data,rain.today,,decimal,,"0.01,0.02,etc.",inches,,,Yes
+weather data,wind.speed,,decimal,,"13.4,8.9,etc.",mph,,,Yes
+API - traffic data  , To be determined,,,,,, Consider prospective data collection - maybe gather traffic data and compile in database for use,,Yes
+Logs - SMS reminder,patient id and date OR procedure id,Get the list of patients reminded by SMS or other means,,,,,,,
+Additional Fields ,PAT_HAS_REMINDER,,,,,,"We may want to factor in patient responses, unclear how feasible this is",Non-critical,
+Additional Fields ,APPTALLOC_TO_APPTDATE_D,,,,,,Calculation can be performed by GE if times available,,
+Additional Fields ,TIMEOF_DAY DEC, Time of day in decimal format; 12:00 – 12:59a = 0; 1:00 – 1:59a =1,,,,,,Non-critical,
+Additional Fields ,PAT_AGE,,int,,"21,89,etc.",years,**Not PHI unless age is over 89 years; Calculation can be performed by GE if times available,,Yes
+Additional Fields ,NB_DAYS_LAST_NOSHOW,,int,,"10,121,etc.",days,,,Yes
+Additional Fields ,NB_DAYS_LAST_SHOW,,int,,"10,121,etc.",days,,,Yes
+Additional Fields ,SCHEDULED_MODALITY,,,,,,Modality to scheduled exam,,
+Additional Fields ,SCHEDULED_PROCEDURE,,,,,,Procedure description scheduled,,
+Additional Fields ,NB_PREVIOUS_NOSHOW,,int,,,,"Last time this was limited to number of no-shows in last two years, this was filtered following data extraction",,Yes
+Additional Fields ,WEEKDAY,,boolean,,,,,,Yes
+Additional Fields ,NOSHOW_PERCENTAGE,,int,,"21,39,etc.",%,,,Yes
+Additional Fields ,REQDATE_TO_APPTALLOC_D,Request date = date physician wrote order,,,,,Calculation can be performed by GE if times available. ,,
+Additional Fields ,DESCRITION.D,Exam description,string,200,"CT HEAD, etc.",,Exam/procedure description,,Yes
+Additional Fields ,DAYOF_WEEK,,int,,"1,7,etc.",day of week as an int,,,Yes
+Additional Fields ,SCHEDULED_SECTION,,,,,,"Same as workplace, where the procedure is to take place",,
+Additional Fields ,NB_PREVIOUS_SHOW,,int,,"2,4,etc.",,,,Yes
+Customer Feedback,Language,Language of patient,,,,,"Not included in model last time, would be helpful. This may be pulled as, “translator needed, Y/N?”",,
+Customer Feedback,Patient arrive time ( check-in),,datetime,,,,,,Yes
+Customer Feedback,Economic Status,,,,,,Discussed on call,,
+Customer Feedback,Requires transportation,,,,,,"Is there an Epic field that identifies need for ambulance, wheelchair, assistance when scheduling?",Non-critical,
+Customer Feedback,Residence,"Type of residence (single family, assisted living etc)",,,,,Customer feedback was to see if residence type factored into MCO,Non-critical,
+Customer Feedback,Cancellation/delay reason,,,,,,No Show or other reasons to identify a cancellation or exam delay reason,,
+Customer Feedback,ID/MRN number,,int,10,5555555,,Epic field ,,Yes
+Customer Feedback,Work zip code,,,,,,Customer feedback was to see if patient’s work location factored into MCO (patient leaving work for appointment),Non-critical,
+Customer Feedback,work address,,,,,,Customer feedback was to see if patient’s work location factored into MCO (patient leaving work for appointment),Non-critical,
+Customer Feedback,Nearest hospital address,,,,,,Customer feedback was to see if there was a hospital closer to the patient and if the driving distance to appt factored into MCO ,Non-critical,
+Customer Feedback,nearest hospital zip code,,,,,,Customer feedback was to see if there was a hospital closer to the patient and if the driving distance to appt factored into MCO ,Non-critical,
+Customer Feedback,Referring physician address,,,,,,Can use zip code,Non-critical,
+Customer Feedback,Referring physician zip code,,,,,,REF_SOURCE_POSTAL_CODE – Direct from RIS/HIS section,,
+Customer Feedback,implant card/number,,"** If card number identifies model, okay to use.  If card number is serial number, this is PHI; Helpful to have to see if factoring into MCO",,,,,,
+Customer Feedback,"pre-registration date, time",,Customer feedback was to see if registering or not registering prior to day of appt factoring into MCO,,,,Non-critical,,
+Customer Feedback,Prep only,,Customer feedback was to see if an exam prep factored into MCO – patient must arrive 1 hr early to drink for CT abd,,,,Non-critical,,
+Customer Feedback,Nuclear/PET meds needed,,Customer feedback was to see if not having meds available or needing to order meds factored into MCO,,,,Non-critical,,
+Customer Feedback,Exam began date and time,,"Study/Exam start - Exam started at 1:10, but scheduled for 1:00; therefore late start",,,,,,
+Customer Feedback,Patients condition; diagnosis; etc,,Customer feedback was to see if any diagnosis's factored into MCO; probably PHI,,,,Non-critical,,
+Customer Feedback,"Level of insurance, PPO, HMO, Medicare, ",,Customer feedback was to see if patients using specific insurance companies factored into MCO,,,,Non-critical,,
+Customer Feedback,Traffic conditions,,Will use ‘typical’ traffic; traffic app,,,,Same as 'Proxy for traffic congestion',Yes,
+Customer Feedback,Transportation needs,,"Is there an Epic field that identifies need for ambulance, wheelchair, assistance when scheduling?",,,,Non-critical,,
+Customer Feedback,Exam/procedure Description,,,,,,,Yes,
+New,Occupation,,,,,,,Non-critical,
+New,Proxy for traffic congestion ,,int,,"23,67,etc.",%,,,Yes
+New,House prices,,int,,"2118,5981,etc.",ZRI,House price and avg square foot may be used as  proxy for family size and income.  Could also get this information from American Community Survey ,,Yes
+New,Avg sq. footage of house in Zipcode/area ,,int,,"1041,3242,etc.",sq ft,,,Avg. Household Size from Census.gov by Zip Code
+New,Pt history in different systems - life image,,boolean,,"1,0",,Life image indicates transferred patient records from another provider – indicates multiple service providers used,,Yes
+New,Other disability,,,,,,,Non-critical,
